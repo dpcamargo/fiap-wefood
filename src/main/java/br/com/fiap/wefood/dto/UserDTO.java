@@ -6,6 +6,7 @@ public record UserDTO(
         String email,
         String username,
         String password,
+        String type,
         String address
 ) {
 }

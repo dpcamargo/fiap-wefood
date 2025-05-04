@@ -1,5 +1,6 @@
 package br.com.fiap.wefood.mapper.impl;
 
+import br.com.fiap.wefood.domain.UserType;
 import br.com.fiap.wefood.domain.entities.Address;
 import br.com.fiap.wefood.domain.entities.Email;
 import br.com.fiap.wefood.domain.entities.Id;
@@ -20,6 +21,7 @@ public class UserMapperImpl implements UserMapper {
                 user.email().value(),
                 user.username().value(),
                 user.password().value(),
+                user.type().value(),
                 user.address().value()
         );
     }
@@ -32,6 +34,7 @@ public class UserMapperImpl implements UserMapper {
                 new Email(userDTO.email()),
                 new Username(userDTO.username()),
                 new Password(userDTO.password()),
+                UserType.valueOf(userDTO.userType()),
                 new Address(userDTO.address())
                 );
     }
