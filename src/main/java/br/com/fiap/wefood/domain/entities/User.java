@@ -1,10 +1,11 @@
 package br.com.fiap.wefood.domain.entities;
 
 public record User(
-        Long id,
-        String name,
+        Id id,
+        Name name,
         Email email,
-        String username,
+        Username username,
         Password password,
-        String address) {
+        Address address
+) {
 }

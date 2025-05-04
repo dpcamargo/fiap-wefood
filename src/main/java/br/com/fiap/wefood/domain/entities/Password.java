@@ -1,14 +1,25 @@
 package br.com.fiap.wefood.domain.entities;
 
+import java.util.regex.Pattern;
+
 public record Password(String value) {
+    static String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])[^\\s]{8,16}$";
+
     public Password {
-        if (value == null || value.isEmpty()) {
-            throw new IllegalArgumentException("password cannot be null or empty");
+        if (!isValidPassword(value)) {
+            throw new IllegalArgumentException(
+                    """
+                    Invalid password:
+                    Must contain 1 number (0-9)
+                    Must contain 1 uppercase letters
+                    Must contain 1 lowercase letters
+                    Must contain 1 non-alpha numeric number
+                    Must be 8-16 characters with no spaces
+                    """);
         }
+    }
 
-        if (value.length() < 8) {
-            throw new IllegalArgumentException("password must be at least 8 characters long");
-        }
-
+    private boolean isValidPassword(String password) {
+        return Pattern.compile(PASSWORD_REGEX).matcher(password).matches();
     }
 }
