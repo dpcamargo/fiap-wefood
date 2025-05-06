@@ -21,11 +21,7 @@ public class WefoodApplication {
         System.out.println(userDomain);
         System.out.println(dao);
         System.out.println(backAgain);
-        System.exit(1);
-
-
 
         SpringApplication.run(WefoodApplication.class, args);
     }
-
 }
