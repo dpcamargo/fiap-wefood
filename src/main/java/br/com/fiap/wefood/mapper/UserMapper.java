@@ -33,4 +33,3 @@ public interface UserMapper {
     default String addressToString(Address address) { return address == null ? null : address.value();}
     default Address stringToAddress(String value) { return value == null ? null : new Address(value);}
 }
-
