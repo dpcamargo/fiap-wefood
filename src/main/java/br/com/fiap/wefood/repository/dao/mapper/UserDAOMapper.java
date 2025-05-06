@@ -1,4 +1,4 @@
-package br.com.fiap.wefood.mapper;
+package br.com.fiap.wefood.repository.dao.mapper;
 
 import br.com.fiap.wefood.domain.model.Address;
 import br.com.fiap.wefood.domain.model.Email;
@@ -7,13 +7,13 @@ import br.com.fiap.wefood.domain.model.Name;
 import br.com.fiap.wefood.domain.model.Password;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.domain.model.Username;
-import br.com.fiap.wefood.dto.UserDTO;
+import br.com.fiap.wefood.repository.dao.UserDAO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-    UserDTO toDTO(User user);
-    User toDomain(UserDTO userDTO);
+public interface UserDAOMapper {
+    User toDomain(UserDAO user);
+    UserDAO toDAO(User user);
 
     default Long idToLong(Id id) { return id == null ? null : id.value();}
     default Id longToId(Long value) { return value == null ? null : new Id(value); }
@@ -33,4 +33,3 @@ public interface UserMapper {
     default String addressToString(Address address) { return address == null ? null : address.value();}
     default Address stringToAddress(String value) { return value == null ? null : new Address(value);}
 }
-

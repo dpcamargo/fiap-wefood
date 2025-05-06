@@ -1,4 +1,4 @@
-package br.com.fiap.wefood.domain.entities;
+package br.com.fiap.wefood.domain.model;
 
 import java.util.regex.Pattern;
 
