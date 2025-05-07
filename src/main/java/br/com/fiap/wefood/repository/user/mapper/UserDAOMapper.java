@@ -1,4 +1,4 @@
-package br.com.fiap.wefood.repository.dao.mapper;
+package br.com.fiap.wefood.repository.user.mapper;
 
 import br.com.fiap.wefood.domain.model.Address;
 import br.com.fiap.wefood.domain.model.Email;
@@ -7,7 +7,7 @@ import br.com.fiap.wefood.domain.model.Name;
 import br.com.fiap.wefood.domain.model.Password;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.domain.model.Username;
-import br.com.fiap.wefood.repository.dao.UserDAO;
+import br.com.fiap.wefood.repository.user.UserDAO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

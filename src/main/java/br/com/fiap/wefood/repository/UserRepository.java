@@ -1,10 +1,11 @@
 package br.com.fiap.wefood.repository;
 
-import br.com.fiap.wefood.repository.dao.UserDAO;
+import br.com.fiap.wefood.domain.model.User;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserDAO, Long> {
-    Optional<UserDAO> findByUsername(String username);
-    Optional<UserDAO> findByEmail(String email);
+public interface UserRepository {
+    User save(User user);
+    Optional<User> findById(Long id);
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 }

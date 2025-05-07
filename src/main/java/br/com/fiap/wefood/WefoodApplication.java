@@ -2,7 +2,7 @@ package br.com.fiap.wefood;
 
 import br.com.fiap.wefood.dto.UserDTO;
 import br.com.fiap.wefood.mapper.UserMapper;
-import br.com.fiap.wefood.repository.dao.mapper.UserDAOMapper;
+import br.com.fiap.wefood.repository.user.mapper.UserDAOMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
