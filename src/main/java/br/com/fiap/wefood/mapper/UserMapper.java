@@ -1,5 +1,6 @@
 package br.com.fiap.wefood.mapper;
 
+import br.com.fiap.wefood.domain.UserType;
 import br.com.fiap.wefood.domain.model.Address;
 import br.com.fiap.wefood.domain.model.Email;
 import br.com.fiap.wefood.domain.model.Id;
@@ -8,12 +9,32 @@ import br.com.fiap.wefood.domain.model.Password;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.domain.model.Username;
 import br.com.fiap.wefood.dto.UserDTO;
+import br.com.fiap.wefood.repository.user.UserEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     UserDTO toDTO(User user);
-    User toDomain(UserDTO userDTO);
+    User dtoToDomain(UserDTO userDTO);
+
+    @Mapping(target = "id", expression = "java(idToLong(user.id()))")
+    @Mapping(target = "name", expression = "java(nameToString(user.name()))")
+    @Mapping(target = "email", expression = "java(emailToString(user.email()))")
+    @Mapping(target = "username", expression = "java(usernameToString(user.username()))")
+    @Mapping(target = "password", expression = "java(passwordToString(user.password()))")
+    @Mapping(target = "type", expression = "java(userTypeToString(user.type()))")
+    @Mapping(target = "address", expression = "java(addressToString(user.address()))")
+    UserEntity toEntity(User user);
+
+    @Mapping(target = "id", expression = "java(longToId(userEntity.getId()))")
+    @Mapping(target = "name", expression = "java(stringToName(userEntity.getName()))")
+    @Mapping(target = "email", expression = "java(stringToEmail(userEntity.getEmail()))")
+    @Mapping(target = "username", expression = "java(stringToUsername(userEntity.getUsername()))")
+    @Mapping(target = "password", expression = "java(stringToPassword(userEntity.getPassword()))")
+    @Mapping(target = "type", expression = "java(stringToUserType(userEntity.getType()))")
+    @Mapping(target = "address", expression = "java(stringToAddress(userEntity.getAddress()))")
+    User entityToDomain(UserEntity userEntity);
 
     default Long idToLong(Id id) { return id == null ? null : id.value();}
     default Id longToId(Long value) { return value == null ? null : new Id(value); }
@@ -29,6 +50,9 @@ public interface UserMapper {
 
     default String passwordToString(Password password) { return password == null ? null : password.value();}
     default Password stringToPassword(String value) { return value == null ? null : new Password(value);}
+
+    default String userTypeToString(UserType userType) { return userType == null ? null : userType.name(); }
+    default UserType stringToUserType(String value) { return value == null ? null : UserType.valueOf(value); }
 
     default String addressToString(Address address) { return address == null ? null : address.value();}
     default Address stringToAddress(String value) { return value == null ? null : new Address(value);}

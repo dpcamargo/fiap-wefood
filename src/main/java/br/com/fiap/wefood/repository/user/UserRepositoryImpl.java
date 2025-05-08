@@ -1,40 +1,42 @@
 package br.com.fiap.wefood.repository.user;
 
 import br.com.fiap.wefood.domain.model.User;
+import br.com.fiap.wefood.mapper.UserMapper;
 import br.com.fiap.wefood.repository.UserRepository;
-import br.com.fiap.wefood.repository.user.mapper.UserDAOMapper;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
-    private final JpaUserDAORepository jpaUserDAORepository;
-    private final UserDAOMapper userDAOMapper;
+    private final JpaUserEntityRepository jpaUserEntityRepository;
+    private final UserMapper userMapper;
 
     public UserRepositoryImpl(
-            JpaUserDAORepository jpaUserDAORepository,
-            UserDAOMapper userDAO) {
-        this.jpaUserDAORepository = jpaUserDAORepository;
-        this.userDAOMapper = userDAO;
+            JpaUserEntityRepository jpaUserEntityRepository,
+            UserMapper userMapper) {
+        this.jpaUserEntityRepository = jpaUserEntityRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
     public User save(User user) {
-        UserDAO userDAO = userDAOMapper.toDAO(user);
-        UserDAO savedUser = jpaUserDAORepository.save(userDAO);
-        return userDAOMapper.toDomain(savedUser);
+        UserEntity userEntity = userMapper.toEntity(user);
+        UserEntity savedUser = jpaUserEntityRepository.save(userEntity);
+        return userMapper.entityToDomain(savedUser);
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return jpaUserDAORepository.findById(id).map(userDAOMapper::toDomain);
+        return jpaUserEntityRepository.findById(id).map(userMapper::entityToDomain);
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return jpaUserDAORepository.findBy;
+        return jpaUserEntityRepository.findByUsername(username).map(userMapper::entityToDomain);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return Optional.empty();
+        return jpaUserEntityRepository.findByEmail(email).map(userMapper::entityToDomain);
     }
 }
