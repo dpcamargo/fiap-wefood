@@ -40,29 +40,78 @@ O projeto está pronto para ser executado em ambiente Docker, com orquestração
 
 ## Arquitetura
 
-O backend é desenvolvido em **Spring Boot**, organizado em camadas (controller, service, repository, model), facilitando a manutenção e futura evolução da aplicação.
+O backend é desenvolvido em **Spring Boot**, respeitando o SOLID e utilizando a arquitetura hexagonal.
+
+A aplicação é dividida em módulos, cada um com sua responsabilidade específica. O sistema é projetado para ser facilmente escalável e adaptável a novas funcionalidades. A estrutura do projeto é modular e bem definida, permitindo fácil manutenção e evolução.
+
+A arquitetura é baseada em princípios de Clean Architecture, onde as regras de negócio estão isoladas das dependências externas. Isso garante que a lógica do sistema permaneça independente de frameworks e tecnologias específicas.
+
+A comunicação entre os módulos é feita através de interfaces, permitindo que cada módulo possa ser testado e desenvolvido de forma independente.
+
+## Tecnologias Utilizadas
+- **Java 21**: Linguagem de programação utilizada para o desenvolvimento do backend.
+- **Spring Boot**: Framework utilizado para criar aplicações Java de forma rápida e fácil.
+- **Spring Data JPA**: Utilizado para simplificar o acesso a dados e a interação com o banco de dados.
+- **Spring Security**: Framework de segurança para autenticação e autorização.
+- **H2**: Banco de dados em memória utilizado para testes e desenvolvimento.
+- **PostgreSQL**: Banco de dados relacional utilizado para armazenar os dados da aplicação.
+- **Docker**: Utilizado para criar contêineres e facilitar a execução da aplicação em diferentes ambientes.
+- **Docker Compose**: Ferramenta para definir e executar aplicativos Docker com múltiplos contêineres.
+- **MapStruct**: Biblioteca para mapeamento de objetos Java, facilitando a conversão entre DTOs e entidades.
+- **Swagger**: Ferramenta para documentar e testar APIs RESTful, facilitando a interação com a API.
+- **Mockito**: Biblioteca para criar mocks e simular comportamentos em testes unitários.
+- **JUnit 5**: Framework de testes utilizado para garantir a qualidade do código.
+- **Postman**: Ferramenta para testar APIs RESTful, permitindo enviar requisições e visualizar respostas.
+
+## Execução
+Para executar o projeto, siga os passos abaixo:
+1. **Clone o repositório**:
+   ```bash
+   git clone
+   ```
+2. **Navegue até o diretório do projeto**:
+   ```bash
+    cd wefood
+    ```
+3. **Execute o Docker Compose**:
+    ```bash
+   docker-compose up
+   ```
+4. **Acesse a aplicação**:
+    ```bash
+   http://localhost:8080
+   ```
+5. **Acesse o Swagger**:
+    ```bash
+   http://localhost:8080/swagger-ui/index.html
+   ```
+6. **Acesse o Postman**:
+     ```bash
+    http://localhost:8080/api-docs
+    ```
 
 ### Estrutura de Pastas
 
 ```plaintext
-├── build
-│   ├── classes
-│   │   └── java
-│   │       └── main
-│   │           └── br
-│   │               └── com
-│   │                   └── fiap
-│   │                       └── wefood
-│   │                           ├── domain
-│   │                           │   └── model
-│   │                           ├── dto
-│   │                           ├── mapper
-│   │                           ├── repository
-│   │                           │   └── dao
-│   │                           │       └── mapper
-│   │                           └── utils
-    └── resources
-        └── application.properties
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── br
+    │   │       └── com
+    │   │           └── fiap
+    │   │               └── wefood
+    │   │                   ├── config
+    │   │                   ├── controller
+    │   │                   ├── domain
+    │   │                   │   └── model
+    │   │                   ├── dto
+    │   │                   ├── mapper
+    │   │                   ├── repository
+    │   │                   │   └── user
+    │   │                   ├── service
+    │   │                   └── utils
+        └── resources
+            └── application.properties
 Dockerfile
 docker-compose.yml
 README.md

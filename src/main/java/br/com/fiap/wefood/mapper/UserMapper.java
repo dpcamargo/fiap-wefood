@@ -38,32 +38,24 @@ public interface UserMapper {
     @Mapping(target = "type", expression = "java(stringToUserType(userEntity.getType()))")
     User entityToDomain(UserEntity userEntity);
 
-    // ----- helpers ------
-    // id
     default Long idToLong(Id id) { return id == null ? null : id.value(); }
     default Id longToId(Long value) { return value == null ? null : new Id(value); }
 
-    // name
     default String nameToString(Name name) { return name == null ? null : name.value(); }
     default Name stringToName(String value) { return value == null ? null : new Name(value); }
 
-    // email
     default String emailToString(Email email) { return email == null ? null : email.value(); }
     default Email stringToEmail(String value) { return value == null ? null : new Email(value); }
 
-    // username
     default String usernameToString(Username username) { return username == null ? null : username.value(); }
     default Username stringToUsername(String value) { return value == null ? null : new Username(value); }
 
-    // password
     default String passwordToString(Password password) { return password == null ? null : password.value(); }
     default Password stringToPassword(String value) { return value == null ? null : new Password(value); }
 
-    // address
     default String addressToString(Address address) { return address == null ? null : address.value(); }
     default Address stringToAddress(String value) { return value == null ? null : new Address(value); }
 
-    // type (if UserType is enum)
     default String userTypeToString(UserType type) { return type == null ? null : type.name(); }
-    default UserType stringToUserType(String value) { return value == null ? null : UserType.valueOf(value); }
+    default UserType stringToUserType(String value) { return value == null ? null : UserType.valueOf(value.toUpperCase()); }
 }
