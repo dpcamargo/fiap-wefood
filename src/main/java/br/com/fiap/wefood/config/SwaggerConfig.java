@@ -1,4 +1,4 @@
-package br.com.fiap.wefood.controller;
+package br.com.fiap.wefood.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
