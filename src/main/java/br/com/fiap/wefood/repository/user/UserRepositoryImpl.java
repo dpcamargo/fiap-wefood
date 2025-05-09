@@ -3,6 +3,7 @@ package br.com.fiap.wefood.repository.user;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.mapper.UserMapper;
 import br.com.fiap.wefood.repository.UserRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,11 @@ public class UserRepositoryImpl implements UserRepository {
         UserEntity userEntity = userMapper.toEntity(user);
         UserEntity savedUser = jpaUserEntityRepository.save(userEntity);
         return userMapper.entityToDomain(savedUser);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return jpaUserEntityRepository.findAll().stream().map(userMapper::entityToDomain).toList();
     }
 
     @Override
