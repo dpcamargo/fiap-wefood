@@ -10,18 +10,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String username;
     private String password;
-    private String type;
+    private String role;
     private String address;
+
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private Instant createdAt;
+
     @Column(name = "updated_at")
     @LastModifiedDate
     private Instant updatedAt;
@@ -38,8 +45,8 @@ public class UserEntity {
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getRole() { return role; }
+    public void setRole(String type) { this.role = type; }
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
     public Instant getCreatedAt() { return createdAt; }

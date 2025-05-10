@@ -1,6 +1,6 @@
 package br.com.fiap.wefood.domain.model;
 
-import br.com.fiap.wefood.utils.NameValidator;
+import br.com.fiap.wefood.util.NameValidator;
 
 public record Username(String value) {
 

@@ -1,7 +1,8 @@
 package br.com.fiap.wefood.controller;
 
 import br.com.fiap.wefood.domain.model.User;
-import br.com.fiap.wefood.dto.UserDTO;
+import br.com.fiap.wefood.dto.UserDtoRequest;
+import br.com.fiap.wefood.dto.UserDtoResponse;
 import br.com.fiap.wefood.mapper.UserMapper;
 import br.com.fiap.wefood.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,44 +14,49 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(
+            UserService userService,
+            UserMapper userMapper
+    ) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
 
     @Operation(summary = "Get all users", description = "Returns a list of all users")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
-    @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        List<User> user = userService.getUsers();
-        List<UserDTO> userDTOs = user.stream()
-                .map(userMapper::toDTO)
+    @GetMapping
+    public ResponseEntity<List<UserDtoResponse>> getUsers() {
+        List<User> users = userService.getUsers();
+        List<UserDtoResponse> usersDtoResponse = users.stream()
+                .map(userMapper::toDto)
                 .toList();
-        return ResponseEntity.ok().body(userDTOs);
+        return ResponseEntity.ok().body(usersDtoResponse);
     }
 
     @Operation(summary = "Get user by ID", description = "Returns a user by their ID")
     @ApiResponse(responseCode = "200", description = "User retrieved successfully")
-    @GetMapping("/users/{user_id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Long id) {
+    @GetMapping("/{user_id}")
+    public ResponseEntity<UserDtoResponse> getUser(@PathVariable("user_id") Long id) {
         Optional<User> user = userService.getUserById(id);
-        return user.map(value -> ResponseEntity.ok().body(userMapper.toDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return user.map(value -> ResponseEntity.ok().body(userMapper.toDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Create a new user", description = "Creates a new user")
     @ApiResponse(responseCode = "201", description = "User created successfully")
-    @PostMapping("/users")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        User user = userMapper.dtoToDomain(userDTO);
+    @PostMapping
+    public ResponseEntity<UserDtoResponse> createUser(@RequestBody UserDtoRequest userDTORequest) {
+        User user = userMapper.dtoToDomain(userDTORequest);
         User createdUser = userService.createUser(user);
-        UserDTO createdUserDTO = userMapper.toDTO(createdUser);
-        return ResponseEntity.status(201).body(createdUserDTO);
+        UserDtoResponse userDtoResponse = userMapper.toDto(createdUser);
+        return ResponseEntity.status(201).body(userDtoResponse);
     }
 }

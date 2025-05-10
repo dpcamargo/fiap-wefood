@@ -1,12 +1,11 @@
 package br.com.fiap.wefood.dto;
 
-public record UserDTO(
+public record UserDtoResponse(
         Long id,
         String name,
         String email,
         String username,
-        String password,
-        String type,
+        String role,
         String address
 ) {
 }

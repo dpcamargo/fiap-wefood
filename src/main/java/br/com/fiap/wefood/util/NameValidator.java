@@ -1,4 +1,4 @@
-package br.com.fiap.wefood.utils;
+package br.com.fiap.wefood.util;
 
 public class NameValidator {
     private NameValidator() {}
