@@ -1,12 +1,13 @@
 package br.com.fiap.wefood.domain.model;
 
-import br.com.fiap.wefood.util.NameValidator;
-
 public record Username(String value) {
-
     public Username {
-        if (!NameValidator.isValid(value)) {
-            throw new IllegalArgumentException("Username must be at least 3 characters long");
+        if (!isValid(value)) {
+            throw new IllegalArgumentException("Invalid username: " + value);
         }
+    }
+
+    private static boolean isValid(String value) {
+        return value != null && value.matches("[A-Za-z0-9_]{3,30}");
     }
 }

@@ -11,7 +11,7 @@ public record Email(String value) {
         }
     }
 
-    private boolean isValidEmail(String email) {
+    private static boolean isValidEmail(String email) {
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches();
     }
 }
