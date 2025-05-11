@@ -3,6 +3,7 @@ package br.com.fiap.wefood.controller;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.dto.UserDtoRequest;
 import br.com.fiap.wefood.dto.UserDtoResponse;
+import br.com.fiap.wefood.exception.UserNotFoundException;
 import br.com.fiap.wefood.mapper.UserMapper;
 import br.com.fiap.wefood.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +33,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @Operation(summary = "Get all users. Administrators only.", description = "Returns a list of all users")
+    @Operation(summary = "Get all users. Administrators only.", description = "Returns a list of all users.")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -44,15 +45,15 @@ public class UserController {
         return ResponseEntity.ok().body(usersDtoResponse);
     }
 
-    @Operation(summary = "Get user by ID", description = "Returns a user by their ID")
+    @Operation(summary = "Get user by ID. User can only get it's own data. Admin can get any user.", description = "Returns a user by their ID.")
     @ApiResponse(responseCode = "200", description = "User retrieved successfully")
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDtoResponse> getUser(@PathVariable("user_id") Long id) {
         Optional<User> user = userService.getUserById(id);
-        return user.map(value -> ResponseEntity.ok().body(userMapper.toDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
+        return user.map(value -> ResponseEntity.ok().body(userMapper.toDto(value))).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
-    @Operation(summary = "Create a new user", description = "Creates a new user")
+    @Operation(summary = "Create a new user. Can only create CUSTOMER role. Admin can create any role.", description = "Creates a new user.")
     @ApiResponse(responseCode = "201", description = "User created successfully")
     @PostMapping
     public ResponseEntity<UserDtoResponse> createUser(@RequestBody UserDtoRequest userDTORequest) {

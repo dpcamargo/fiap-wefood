@@ -1,7 +1,9 @@
 package br.com.fiap.wefood.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -22,7 +24,7 @@ public class GlobalExceptionHandler {
                 req.getRequestURI()
         );
         log.warn("Access denied: {}", error);
-        return ResponseEntity.status(403).body(error);
+        return ResponseEntity.status(error.getStatus()).body(error);
     }
 
     @ExceptionHandler(AuthenticationException.class)
@@ -34,7 +36,7 @@ public class GlobalExceptionHandler {
                 req.getRequestURI()
         );
         log.info("Authentication failed: {}", error);
-        return ResponseEntity.status(401).body(error);
+        return ResponseEntity.status(error.getStatus()).body(error);
     }
 
     @ExceptionHandler(Exception.class)
@@ -46,6 +48,42 @@ public class GlobalExceptionHandler {
                 req.getRequestURI()
         );
         log.error("Unexpected error: {}", error);
-        return ResponseEntity.status(500).body(error);
+        return ResponseEntity.status(error.getStatus()).body(error);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleInvalidRole(Exception ex, HttpServletRequest req) {
+        ApiError error = new ApiError(
+                400,
+                "Bad Request",
+                ex.getMessage(),
+                req.getRequestURI()
+        );
+        log.warn("Bad request: {}", error);
+        return ResponseEntity.status(error.getStatus()).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiError> handleJpaIntegrity(Exception ex, HttpServletRequest req) {
+        ApiError error = new ApiError(
+                409,
+                "Conflict",
+                "A resource with the same unique value already exists.",
+                req.getRequestURI()
+        );
+        log.warn("Conflict: {} - {}", error, ex.getMessage());
+        return ResponseEntity.status(error.getStatus()).body(error);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiError> handleUserNotFound(Exception ex, HttpServletRequest req) {
+        ApiError error = new ApiError(
+                404,
+                "Not Found",
+                ex.getMessage(),
+                req.getRequestURI()
+        );
+        log.warn("User Not Found: {}", error);
+        return ResponseEntity.status(error.getStatus()).body(error);
     }
 }
