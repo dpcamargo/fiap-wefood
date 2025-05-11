@@ -89,7 +89,18 @@ Para executar o projeto, siga os passos abaixo:
      ```bash
     http://localhost:8080/api-docs
     ```
-
+   
+### Configurações
+1. **Admin User**:
+   ```
+   login: admin
+   password: "admin.password" on application.properties
+   ```
+   
+2. **JWT Secret
+   ```
+   "jwt.secret" on application.properties
+   ```
 ### Estrutura de Pastas
 
 ```plaintext

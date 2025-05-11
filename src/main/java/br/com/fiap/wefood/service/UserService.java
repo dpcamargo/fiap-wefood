@@ -1,10 +1,15 @@
 package br.com.fiap.wefood.service;
 
 import br.com.fiap.wefood.domain.model.Password;
+import br.com.fiap.wefood.domain.model.Role;
 import br.com.fiap.wefood.domain.model.User;
 import br.com.fiap.wefood.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +21,19 @@ public class UserService {
 
     public UserService(
             UserRepository userRepository,
-           PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin  = auth.getAuthorities().contains(Role.ADMIN);
+        if (!user.role().equals(Role.CUSTOMER) && !isAdmin) {
+            throw new AccessDeniedException("");
+        }
+
         User userToSave = new User(
                 user.id(),
                 user.name(),
@@ -39,10 +50,9 @@ public class UserService {
     }
 
     public List<User> getUsers() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().toString();
+
         return userRepository.getUsers();
     }
-
-//    public String login(String password) {
-//        return securityConfig.bCryptPasswordEncoder().encode(password);
-//    }
 }

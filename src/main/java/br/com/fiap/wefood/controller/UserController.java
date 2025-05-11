@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +32,10 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @Operation(summary = "Get all users", description = "Returns a list of all users")
+    @Operation(summary = "Get all users. Administrators only.", description = "Returns a list of all users")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserDtoResponse>> getUsers() {
         List<User> users = userService.getUsers();
         List<UserDtoResponse> usersDtoResponse = users.stream()
