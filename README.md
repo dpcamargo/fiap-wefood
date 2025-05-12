@@ -24,7 +24,7 @@ Develop a robust and complete backend using **Spring Boot**, focused on user man
 - User deletion
 - Login validation
 
-The project is Docker-ready, uses Docker Compose for orchestration, and is integrated with a relational database (PostgreSQL, MySQL, or H2).
+The project is Docker-ready, uses Docker Compose for orchestration, and is integrated with a relational database (PostgreSQL or H2).
 
 ---
 
@@ -109,6 +109,62 @@ The backend is developed in **Spring Boot**, follows **SOLID** principles, and u
 
 - **JWT Secret:**
     - Value from `jwt.secret` in `application.properties`
+
+- **Database:**
+  - Env`SPRING_PROFILES_ACTIVE=postgres` to use PostgreSQL
+  - Env`SPRING_PROFILES_ACTIVE=h2` to use in memory H2
+---
+
+## 🚀 Running the Project
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/dpcamargo/fiap-wefood.git
+```
+
+### 2. Go to the Project Directory
+
+```bash
+cd wefood
+```
+
+### 3. Start using H2
+
+```bash
+docker-compose -f docker-compose-h2.yaml up -d
+```
+
+---
+
+## 📁 Project Structure
+
+```plaintext
+src
+ ├── main
+ │  ├── java
+ │  │  └── br
+ │  │      └── com
+ │  │          └── fiap
+ │  │              └── wefood
+ │  │                  ├── WefoodApplication.java
+ │  │                  ├── config
+ │  │                  ├── controller
+ │  │                  ├── domain
+ │  │                  │  └── model
+ │  │                  ├── dto
+ │  │                  ├── exception
+ │  │                  ├── mapper
+ │  │                  ├── repository
+ │  │                  │  └── user
+ │  │                  ├── security
+ │  │                  └── service
+ │  ├── resources
+ │  │   └── application.properties
+ │  └── docs
+ ├── Dockerfile
+ ├── docker-compose.yml
+```
 
 ---
 
@@ -278,59 +334,6 @@ The backend is developed in **Spring Boot**, follows **SOLID** principles, and u
   }
 }
 ```
-
-## 🚀 Running the Project
-
-### 1. Clone the Repository
-
-```bash
-git clone <repo-url>
-```
-
-### 2. Go to the Project Directory
-
-```bash
-cd wefood
-```
-
-### 3. Start Docker Compose
-
-```bash
-docker-compose up
-```
-
----
-
-## 📁 Project Structure
-
-```plaintext
-src
- ├── main
- │  ├── java
- │  │  └── br
- │  │      └── com
- │  │          └── fiap
- │  │              └── wefood
- │  │                  ├── WefoodApplication.java
- │  │                  ├── config
- │  │                  ├── controller
- │  │                  ├── domain
- │  │                  │  └── model
- │  │                  ├── dto
- │  │                  ├── exception
- │  │                  ├── mapper
- │  │                  ├── repository
- │  │                  │  └── user
- │  │                  ├── security
- │  │                  └── service
- │  ├── resources
- │  │   └── application.properties
- │  └── docs
- ├── Dockerfile
- ├── docker-compose.yml
-```
-
----
 
 ## 💡 TODO
 
