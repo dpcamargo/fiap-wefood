@@ -27,6 +27,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User update(User user) {
+        UserEntity userEntity = userMapper.toEntity(user);
+        UserEntity savedUser = jpaUserEntityRepository.save(userEntity);
+        return userMapper.entityToDomain(savedUser);
+    }
+
+    @Override
     public List<User> getUsers() {
         return jpaUserEntityRepository.findAll().stream().map(userMapper::entityToDomain).toList();
     }
@@ -44,5 +51,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         return jpaUserEntityRepository.findByEmail(email).map(userMapper::entityToDomain);
+    }
+
+    @Override
+    public void delete(Long id) {
+        jpaUserEntityRepository.deleteById(id);
     }
 }

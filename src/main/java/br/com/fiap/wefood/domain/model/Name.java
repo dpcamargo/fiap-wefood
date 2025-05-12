@@ -8,6 +8,6 @@ public record Name(String value) {
     }
 
     private static boolean isValid(String value) {
-        return value != null && value.matches("[A-Za-z0-9_]{3,30}");
+        return value != null && value.length() >= 3;
     }
 }

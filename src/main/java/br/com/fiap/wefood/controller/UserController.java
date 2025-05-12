@@ -10,11 +10,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +63,24 @@ public class UserController {
         User user = userMapper.dtoToDomain(userDTORequest);
         User createdUser = userService.createUser(user);
         UserDtoResponse userDtoResponse = userMapper.toDto(createdUser);
-        return ResponseEntity.status(201).body(userDtoResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDtoResponse);
+    }
+
+    @Operation(summary = "Update user content. Only admin can change other users. User can change itself, except for role.", description = "Updates user data.")
+    @ApiResponse(responseCode = "200", description = "User updated successfully")
+    @PutMapping
+    public ResponseEntity<UserDtoResponse> updateUser(@RequestBody UserDtoRequest userDtoRequest) {
+        User user = userMapper.dtoToDomain(userDtoRequest);
+        User updatedUser = userService.updateUser(user);
+        UserDtoResponse userDtoResponse = userMapper.toDto(updatedUser);
+        return ResponseEntity.ok().body(userDtoResponse);
+    }
+
+    @Operation(summary = "Excludes an user. Only admin can exclude other users. User can exclude itself.", description = "Excludes an user.")
+    @ApiResponse(responseCode = "204", description = "User deleted successfully")
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("user_id") Long id ) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
