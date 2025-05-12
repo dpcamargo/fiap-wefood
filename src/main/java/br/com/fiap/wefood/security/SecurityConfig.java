@@ -43,7 +43,11 @@ public class SecurityConfig {
                                         "/users/**",
                                         "/users",
                                         "/login",
-                                        "/h2-console/**"
+                                        "/h2-console/**",
+                                        "/v3/api-docs",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/**"
                                 ).permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(

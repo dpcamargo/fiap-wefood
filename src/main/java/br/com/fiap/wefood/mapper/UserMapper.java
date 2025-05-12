@@ -30,6 +30,8 @@ public interface UserMapper {
     @Mapping(target = "password", expression = "java(passwordToString(user.password()))")
     @Mapping(target = "address", expression = "java(addressToString(user.address()))")
     @Mapping(target = "role", expression = "java(userRoleToString(user.role()))")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     UserEntity toEntity(User user);
 
     // Mapping entity to domain (password hash from db)

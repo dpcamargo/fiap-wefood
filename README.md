@@ -1,128 +1,345 @@
-# Tech Challenge - Sistema de Gestão para Restaurantes
+# Pós Tech FIAP - Tech Challenge
 
-## Visão Geral
+## Architecture and Java Development
 
-O **Tech Challenge** é um projeto prático da pós graduação de Arquitetura e Desenvolvimento Java da FIAP, para a criação de um sistema de gestão de restaurantes, desenvolvido em fases. O objetivo principal é possibilitar que vários restaurantes da região utilizem um único sistema eficiente para gerenciar suas operações, reduzindo custos e proporcionando uma boa experiência tanto para restaurantes quanto para clientes.
-
----
-
-## Objetivo Fase 1
-
-Desenvolver um backend completo e robusto utilizando o framework **Spring Boot**, focado no gerenciamento de usuários. As operações implementadas incluem:
-
-- Criação de usuários
-- Atualização e alteração de dados do usuário
-- Exclusão de usuários
-- Validação de login
-
-O projeto está pronto para ser executado em ambiente Docker, com orquestração via Docker Compose e integração com banco de dados relacional (PostgreSQL, MySQL ou H2). O foco está na fácil replicação e escalabilidade do sistema, seguindo boas práticas de arquitetura, organização e segurança.
+### WeFood - Restaurant Management System
 
 ---
 
-## Funcionalidades
+## Overview
 
-- **Cadastro de Usuários**: Com os seguintes campos:
-    - Nome (String)
-    - Email (String)
-    - Login (String)
-    - Senha (String)
-    - Data da última alteração (Date)
-    - Endereço
+The **Tech Challenge** is a hands-on project from FIAP’s postgraduate course in Java Architecture and Development, aiming to create a restaurant management system, developed in phases.
 
-- **Gerenciamento de Usuário**: Permite alteração dos dados já cadastrados.
-- **Troca de Senha**: Usuários podem trocar sua senha.
-- **Validação de Login**: Verifica usuário e senha para autenticação.
-- **Tipos de Usuário**:
-    - Dono de Restaurante
-    - Cliente
+> **Main goal:**
+> Allow multiple restaurants to use a single, efficient system, reducing costs and offering a great experience for restaurants and customers alike.
 
 ---
 
-## Arquitetura
+## Phase 1 Objective
 
-O backend é desenvolvido em **Spring Boot**, respeitando o SOLID e utilizando a arquitetura hexagonal.
+Develop a robust and complete backend using **Spring Boot**, focused on user management. The implemented operations include:
 
-A aplicação é dividida em módulos, cada um com sua responsabilidade específica. O sistema é projetado para ser facilmente escalável e adaptável a novas funcionalidades. A estrutura do projeto é modular e bem definida, permitindo fácil manutenção e evolução.
+- User creation
+- User data updating
+- User deletion
+- Login validation
 
-A arquitetura é baseada em princípios de Clean Architecture, onde as regras de negócio estão isoladas das dependências externas. Isso garante que a lógica do sistema permaneça independente de frameworks e tecnologias específicas.
+The project is Docker-ready, uses Docker Compose for orchestration, and is integrated with a relational database (PostgreSQL, MySQL, or H2).
 
-A comunicação entre os módulos é feita através de interfaces, permitindo que cada módulo possa ser testado e desenvolvido de forma independente.
+---
 
-## Tecnologias Utilizadas
-- **Java 21**: Linguagem de programação utilizada para o desenvolvimento do backend.
-- **Spring Boot**: Framework utilizado para criar aplicações Java de forma rápida e fácil.
-- **Spring Data JPA**: Utilizado para simplificar o acesso a dados e a interação com o banco de dados.
-- **Spring Security**: Framework de segurança para autenticação e autorização.
-- **H2**: Banco de dados em memória utilizado para testes e desenvolvimento.
-- **PostgreSQL**: Banco de dados relacional utilizado para armazenar os dados da aplicação.
-- **Docker**: Utilizado para criar contêineres e facilitar a execução da aplicação em diferentes ambientes.
-- **Docker Compose**: Ferramenta para definir e executar aplicativos Docker com múltiplos contêineres.
-- **MapStruct**: Biblioteca para mapeamento de objetos Java, facilitando a conversão entre DTOs e entidades.
-- **Swagger**: Ferramenta para documentar e testar APIs RESTful, facilitando a interação com a API.
-- **Mockito**: Biblioteca para criar mocks e simular comportamentos em testes unitários.
-- **JUnit 5**: Framework de testes utilizado para garantir a qualidade do código.
-- **Postman**: Ferramenta para testar APIs RESTful, permitindo enviar requisições e visualizar respostas.
+## Features
 
-## Execução
-Para executar o projeto, siga os passos abaixo:
-1. **Clone o repositório**:
-   ```bash
-   git clone
-   ```
-2. **Navegue até o diretório do projeto**:
-   ```bash
-    cd wefood
-    ```
-3. **Execute o Docker Compose**:
-    ```bash
-   docker-compose up
-   ```
-4. **Acesse a aplicação**:
-    ```bash
-   http://localhost:8080
-   ```
-5. **Acesse o Swagger**:
-    ```bash
-   http://localhost:8080/swagger-ui/index.html
-   ```
-6. **Acesse o Postman**:
-     ```bash
-    http://localhost:8080/api-docs
-    ```
-   
-### Configurações
-1. **Admin User**:
-   ```
-   login: admin
-   password: "admin.password" on application.properties
-   ```
-   
-2. **JWT Secret
-   ```
-   "jwt.secret" on application.properties
-   ```
-### Estrutura de Pastas
+### User Management
+
+- **Registration fields:**
+    - Name (`String`)
+    - Email (`String`)
+    - Username (`String`)
+    - Password (`String`)
+    - Last update date (`Date`)
+    - Address
+
+- **Password change**: Users can change their password.
+- **Login validation**: Checks user credentials.
+- **User deletion**: Remove registered users.
+
+### User Roles
+
+- Restaurant Owner
+- Customer
+- Admin
+
+---
+
+## Architecture
+
+The backend is developed in **Spring Boot**, follows **SOLID** principles, and uses **Hexagonal Architecture** and **Clean Architecture**.
+*Business rules are isolated from external dependencies.*
+
+### Modular Design
+
+> Communication between modules is done via interfaces, so each module can be developed and tested independently.
+
+#### Key Modules
+
+- **config:**
+    - `SwaggerConfig`, `AdminUserInitializer`
+- **controller:**
+    - `AuthController` (`POST /login` - JWT issuance)
+    - `UserController` (`GET`, `POST`, `PUT`, `DELETE` endpoints for user management, each with access control)
+- **domain/model:**
+    - `User`, `Id`, `Name`, `Email`, `Username`, `Password`, `Role`, `Address`
+- **dto:**
+    - `UserDtoRequest`, `UserDtoResponse`
+- **exception:**
+    - `ApiError`, `GlobalExceptionHandler`, `UserAlreadyExistsException`, `UserNotFoundException`
+- **mapper:**
+    - `UserMapper`
+- **repository/user:**
+    - `UserEntity`, `UserRepositoryImpl`, `JpaUserEntityRepository`
+- **security:**
+    - `JwtAuthenticationFilter`, `JwtUtil`, `MyUserDetails`, `MyUserDetailsService`, `SecurityConfig`, `SecurityExceptionHandlerConfig`, `SecurityUtil`
+- **service:**
+    - `UserService`
+
+---
+
+## 🛠️ Technology Stack
+
+- **Java 21**
+- **Spring Boot** (core app)
+- **Spring Data JPA** (data access)
+- **Spring Security** (auth/authz)
+- **H2** / **PostgreSQL** (databases)
+- **Docker** / **Docker Compose**
+- **MapStruct** (object mapping)
+- **Swagger** (API docs)
+- **Mockito** (mocking)
+- **JUnit 5** (tests)
+- **Postman** (manual API testing)
+
+---
+
+## 🔧 Configurations
+
+- **Default Admin User:**
+    - `login`: `admin`
+    - `password`: Value from `admin.password` in `application.properties`
+
+- **JWT Secret:**
+    - Value from `jwt.secret` in `application.properties`
+
+---
+
+## Endpoints
+
+- Postman collection: `/postman/wefood.json`
+- Application: [http://localhost:8080](http://localhost:8080)
+- Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- OpenAPI Docs: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+### User Controller
+
+#### GET /users
+
+*   **Summary:** Get all users. Administrators only.
+*   **Description:** Returns a list of all users.
+*   **Operation ID:** `getUsers`
+*   **Tags:** `user-controller`
+*   **Responses:**
+    *   `200 OK`: Users retrieved successfully. Returns an array of `UserDtoResponse` objects.
+
+#### PUT /users
+
+*   **Summary:** Update user content. Only admin can change other users. User can change itself, except for role.
+*   **Description:** Updates user data.
+*   **Operation ID:** `updateUser`
+*   **Tags:** `user-controller`
+*   **Request Body:** `application/json` with schema `UserDtoRequest`
+*   **Responses:**
+    *   `200 OK`: User updated successfully. Returns a `UserDtoResponse` object.
+
+#### POST /users
+
+*   **Summary:** Create a new user. Can only create CUSTOMER role. Admin can create any role.
+*   **Description:** Creates a new user.
+*   **Operation ID:** `createUser`
+*   **Tags:** `user-controller`
+*   **Request Body:** `application/json` with schema `UserDtoRequest`
+*   **Responses:**
+    *   `201 Created`: User created successfully. Returns a `UserDtoResponse` object.
+
+#### GET /users/{user_id}
+
+*   **Summary:** Get user by ID. User can only get it's own data. Admin can get any user.
+*   **Description:** Returns a user by their ID.
+*   **Operation ID:** `getUser`
+*   **Tags:** `user-controller`
+*   **Parameters:**
+    *   `user_id` (path, required): Integer (int64)
+*   **Responses:**
+    *   `200 OK`: User retrieved successfully. Returns a `UserDtoResponse` object.
+
+#### DELETE /users/{user_id}
+
+*   **Summary:** Excludes an user. Only admin can exclude other users. User can exclude itself.
+*   **Description:** Excludes an user.
+*   **Operation ID:** `deleteUser`
+*   **Tags:** `user-controller`
+*   **Parameters:**
+    *   `user_id` (path, required): Integer (int64)
+*   **Responses:**
+    *   `204 No Content`: User deleted successfully.
+
+### Auth Controller
+
+#### POST /login
+
+*   **Summary:** Logs in an user.
+*   **Operation ID:** `login`
+*   **Tags:** `auth-controller`
+*   **Request Body:** `application/json` with schema `LoginRequestDTO`
+*   **Responses:**
+    *   `200 OK`: Returns a `LoginResponse` object.
+
+## Schemas
+
+### UserDtoRequest
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}
+```
+### UserDtoResponse
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}
+```
+
+### LoginRequestDTO
+```json
+{
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string"
+},
+  "password": {
+    "type": "string"
+    }
+  }
+}
+```
+
+### LoginResponse
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "expiresAt": {
+      "type": "string"
+    }
+  }
+}
+```
+
+## 🚀 Running the Project
+
+### 1. Clone the Repository
+
+```bash
+git clone <repo-url>
+```
+
+### 2. Go to the Project Directory
+
+```bash
+cd wefood
+```
+
+### 3. Start Docker Compose
+
+```bash
+docker-compose up
+```
+
+---
+
+## 📁 Project Structure
 
 ```plaintext
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── br
-    │   │       └── com
-    │   │           └── fiap
-    │   │               └── wefood
-    │   │                   ├── config
-    │   │                   ├── controller
-    │   │                   ├── domain
-    │   │                   │   └── model
-    │   │                   ├── dto
-    │   │                   ├── mapper
-    │   │                   ├── repository
-    │   │                   │   └── user
-    │   │                   ├── service
-    │   │                   └── utils
-        └── resources
-            └── application.properties
-Dockerfile
-docker-compose.yml
-README.md
+src
+ ├── main
+ │  ├── java
+ │  │  └── br
+ │  │      └── com
+ │  │          └── fiap
+ │  │              └── wefood
+ │  │                  ├── WefoodApplication.java
+ │  │                  ├── config
+ │  │                  ├── controller
+ │  │                  ├── domain
+ │  │                  │  └── model
+ │  │                  ├── dto
+ │  │                  ├── exception
+ │  │                  ├── mapper
+ │  │                  ├── repository
+ │  │                  │  └── user
+ │  │                  ├── security
+ │  │                  └── service
+ │  ├── resources
+ │  │   └── application.properties
+ │  └── docs
+ ├── Dockerfile
+ ├── docker-compose.yml
+```
+
+---
+
+## 💡 TODO
+
+### 📖 Documentation
+
+- Document **JWT structure** (header, claims, signature).
+- Provide **sequence diagrams** for major flows (registration, login, password change).
+
+### 🧪 Testing & Quality
+
+- Include a **code coverage badge/instructions**.
+- Add **sample integration tests** (especially for authentication/user management).
