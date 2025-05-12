@@ -129,10 +129,18 @@ git clone https://github.com/dpcamargo/fiap-wefood.git
 cd wefood
 ```
 
-### 3. Start using H2
+### 3. Start WeFood
 
 ```bash
 docker-compose -f docker-compose-h2.yaml up -d
+or
+docker-compose -f docker-compose-postgres.yaml up -d
+```
+
+### 4. Import Collection
+
+```bash
+Import Postman Collection from /postman/WeFood.json
 ```
 
 ---
