@@ -1,7 +1,7 @@
 package br.com.fiap.wefood.security;
 
-import br.com.fiap.wefood.domain.model.Role;
-import br.com.fiap.wefood.domain.model.User;
+import br.com.fiap.wefood.domain.user.Role;
+import java.util.UUID;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -27,7 +27,7 @@ public class SecurityUtil {
                 .anyMatch(a -> a.getAuthority().equals(Role.ADMIN.toAuthority()));
     }
 
-    public static Long getUserId() {
+    public static UUID getUserId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             return null;

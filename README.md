@@ -40,7 +40,7 @@ The project is Docker-ready, uses Docker Compose for orchestration, and is integ
     - Last update date (`Date`)
     - Address
 
-- **Password change**: Users can change their password.
+- **Password change**: Users can change their passwordEncoder.
 - **Login validation**: Checks user credentials.
 - **User deletion**: Remove registered users.
 
@@ -105,7 +105,7 @@ The backend is developed in **Spring Boot**, follows **SOLID** principles, and u
 
 - **Default Admin User:**
     - `login`: `admin`
-    - `password`: Value from `admin.password` in `application.properties`
+    - `passwordEncoder`: Value from `admin.passwordEncoder` in `application.properties`
 
 - **JWT Secret:**
     - Value from `jwt.secret` in `application.properties`
@@ -268,7 +268,7 @@ src
     "username": {
       "type": "string"
     },
-    "password": {
+    "passwordEncoder": {
       "type": "string"
     },
     "role": {
@@ -317,7 +317,7 @@ src
     "username": {
       "type": "string"
 },
-  "password": {
+  "passwordEncoder": {
     "type": "string"
     }
   }
@@ -348,7 +348,7 @@ src
 ### 📖 Documentation
 
 - Document **JWT structure** (header, claims, signature).
-- Provide **sequence diagrams** for major flows (registration, login, password change).
+- Provide **sequence diagrams** for major flows (registration, login, passwordEncoder change).
 
 ### 🧪 Testing & Quality
 
