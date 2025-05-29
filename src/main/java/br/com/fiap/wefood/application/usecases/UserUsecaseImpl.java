@@ -1,7 +1,6 @@
-package br.com.fiap.wefood.application.service;
+package br.com.fiap.wefood.application.usecases;
 
 import br.com.fiap.wefood.adapters.outbound.password.PasswordEncoder;
-import br.com.fiap.wefood.application.usecases.UserUseCase;
 import br.com.fiap.wefood.domain.user.Role;
 import br.com.fiap.wefood.domain.user.User;
 import br.com.fiap.wefood.domain.user.UserRepository;
@@ -16,13 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserUseCase {
+public class UserUsecaseImpl implements UserUseCase {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SecurityUtil securityUtil;
 
-    public UserServiceImpl(
+    public UserUsecaseImpl(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             SecurityUtil securityUtil
