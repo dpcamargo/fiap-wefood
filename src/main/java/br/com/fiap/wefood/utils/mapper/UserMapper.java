@@ -43,7 +43,7 @@ public class UserMapper {
 
     public static User dtoToDomain(UserDtoRequest userDto) {
         return new User(
-                UUID.fromString(userDto.id()),
+                userDto.id() == null ? null : UUID.fromString(userDto.id()),
                 userDto.name(),
                 userDto.email(),
                 userDto.username(),

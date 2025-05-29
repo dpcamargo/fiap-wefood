@@ -20,17 +20,20 @@ public class UserServiceImpl implements UserUseCase {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SecurityUtil securityUtil;
 
     public UserServiceImpl(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            SecurityUtil securityUtil
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.securityUtil = securityUtil;
     }
 
     public User createUser(User user) {
-        boolean isAdmin = SecurityUtil.isAdmin();
+        boolean isAdmin = securityUtil.isAdmin();
         boolean isCustomer = user.getRole().equals(Role.CUSTOMER);
 
         if (!(isCustomer || isAdmin)) {
@@ -42,8 +45,8 @@ public class UserServiceImpl implements UserUseCase {
     }
 
     public User updateUser(User user) {
-        boolean notSameUser = !user.getId().equals(SecurityUtil.getUserId());
-        boolean notAdmin = !SecurityUtil.isAdmin();
+        boolean notSameUser = !user.getId().equals(securityUtil.getUserId());
+        boolean notAdmin = !securityUtil.isAdmin();
         boolean notCustomer = !user.getRole().equals(Role.CUSTOMER);
 
         if ((notSameUser && notAdmin) || (notCustomer && notAdmin)) {
@@ -56,8 +59,8 @@ public class UserServiceImpl implements UserUseCase {
 
     public void deleteUser(String id) {
         UUID uuid = UUID.fromString(id);
-        boolean notSameUser = !uuid.equals(SecurityUtil.getUserId());
-        boolean notAdmin = !SecurityUtil.isAdmin();
+        boolean notSameUser = !uuid.equals(securityUtil.getUserId());
+        boolean notAdmin = !securityUtil.isAdmin();
 
         if (notSameUser && notAdmin) {
             throw new AccessDeniedException(null);
@@ -66,17 +69,18 @@ public class UserServiceImpl implements UserUseCase {
     }
 
     public Optional<User> getUserById(String id) {
-        UUID uuid = UUID.fromString(id);
-        if (!uuid.equals(SecurityUtil.getUserId()) && !SecurityUtil.isAdmin()) {
-            throw new AccessDeniedException(null);
-        }
-        return userRepository.findById(uuid);
+            UUID uuid = UUID.fromString(id);
+            if (!uuid.equals(securityUtil.getUserId()) && !securityUtil.isAdmin()) {
+                throw new AccessDeniedException(null);
+            }
+            return userRepository.findById(uuid);
     }
 
-    public List<User> getUsers() {
+    public List<User> getUsers(Integer page, Integer size) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String role = auth.getAuthorities().toString();
-
-        return userRepository.findAllUsers();
+        if (!securityUtil.isAdmin()) {
+            throw new AccessDeniedException(null);
+        };
+        return userRepository.findAllUsers(page, size);
     }
 }

@@ -15,6 +15,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.BindParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,9 +41,10 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    //TODO: CREATE PAGEABLE
-    public ResponseEntity<List<UserDtoResponse>> getUsers() {
-        List<User> users = userUseCase.getUsers();
+    public ResponseEntity<List<UserDtoResponse>> getUsers(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size) {
+        page = page == null ? 1 : page;
+        size = size == null ? 10 : size;
+        List<User> users = userUseCase.getUsers(page, size);
         List<UserDtoResponse> usersDtoResponse = users.stream()
                 .map(UserMapper::domainToDto)
                 .toList();

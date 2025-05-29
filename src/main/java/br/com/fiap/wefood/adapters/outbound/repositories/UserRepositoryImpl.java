@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -36,8 +38,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return jpaUserRepository.findAll().stream().map(UserMapper::entityToDomain).collect(Collectors.toList());
+    public List<User> findAllUsers(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return jpaUserRepository.findAll(pageable).stream().map(UserMapper::entityToDomain).collect(Collectors.toList());
     }
 
     @Override

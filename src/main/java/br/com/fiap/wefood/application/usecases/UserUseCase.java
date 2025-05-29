@@ -10,5 +10,5 @@ public interface UserUseCase {
     public User updateUser(User user);
     public void deleteUser(String id);
     public Optional<User> getUserById(String id);
-    public List<User> getUsers();
+    public List<User> getUsers(Integer page, Integer size);
 }
