@@ -1,6 +1,6 @@
 package br.com.fiap.wefood.security;
 
-import br.com.fiap.wefood.domain.model.Role;
+import br.com.fiap.wefood.domain.user.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

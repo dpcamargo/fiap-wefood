@@ -1,5 +1,6 @@
 package br.com.fiap.wefood.security;
 
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.Collection;
 @Builder
 @Getter
 public class MyUserDetails implements UserDetails {
-    private Long userId;
+    private UUID userId;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
