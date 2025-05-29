@@ -191,7 +191,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/users",
+							"raw": "127.0.0.1:8080/users?page=0&size=10",
 							"host": [
 								"127",
 								"0",
@@ -201,6 +201,16 @@
 							"port": "8080",
 							"path": [
 								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -237,7 +247,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "45b92ad1-9157-421f-a918-385a5704403a"
 								}
 							]
 						}
@@ -261,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"name\": \"John123\",\n    \"email\": \"john@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"ADMIN\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"id\": \"45b92ad1-9157-421f-a918-385a5704403a\",\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -309,7 +319,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/users/3",
+							"raw": "127.0.0.1:8080/users/:id",
 							"host": [
 								"127",
 								"0",
@@ -319,7 +329,13 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"3"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "45b92ad1-9157-421f-a918-385a5704403a"
+								}
 							]
 						}
 					},
@@ -340,7 +356,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"John\",\n    \"email\": \"john@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"name\": \"Jane\",\n    \"email\": \"jane@uol.com.br\",\n    \"username\": \"jane\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -386,7 +402,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\"\n}",
+							"raw": "{\n    \"username\": \"janeX\",\n    \"password\": \"Password1@\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -471,7 +487,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "5ab90218-3b7a-428f-b1c9-db1eeb028b54"
 								}
 							]
 						}
@@ -509,7 +525,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "c61c73ba-f5fb-4ca3-b9fd-ea9febe21762"
 								}
 							]
 						}
@@ -533,7 +549,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"id\": \"5ab90218-3b7a-428f-b1c9-db1eeb028b54\",\n    \"name\": \"Jane Changed Name\",\n    \"email\": \"janenewmail@uol.com.br\",\n    \"username\": \"admin\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,7 +589,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"ADMIN\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"id\": \"c61c73ba-f5fb-4ca3-b9fd-ea9febe21762\",\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"ADMIN\",\n    \"address\": \"Lolol Street, 51\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -621,7 +637,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/users/2",
+							"raw": "127.0.0.1:8080/users/:id",
 							"host": [
 								"127",
 								"0",
@@ -631,7 +647,13 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"2"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c61c73ba-f5fb-4ca3-b9fd-ea9febe21762"
+								}
 							]
 						}
 					},
