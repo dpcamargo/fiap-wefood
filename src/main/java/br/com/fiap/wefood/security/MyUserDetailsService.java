@@ -1,7 +1,7 @@
 package br.com.fiap.wefood.security;
 
-import br.com.fiap.wefood.domain.model.User;
-import br.com.fiap.wefood.repository.UserRepository;
+import br.com.fiap.wefood.domain.user.User;
+import br.com.fiap.wefood.domain.user.UserRepository;
 import java.util.List;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +24,10 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found."));
         return MyUserDetails.builder()
-                .userId(user.id().value())
-                .username(user.username().value())
-                .password(user.password().value())
-                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.role().name())))
+                .userId(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())))
                 .build();
     }
 }

@@ -1,6 +1,6 @@
 package br.com.fiap.wefood.security;
 
-import br.com.fiap.wefood.exception.ApiError;
+import br.com.fiap.wefood.infrastructure.exceptions.ApiError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;

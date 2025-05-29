@@ -1,7 +1,9 @@
 package br.com.fiap.wefood.dto;
 
+import java.util.UUID;
+
 public record UserDtoResponse(
-        Long id,
+        String id,
         String name,
         String email,
         String username,
