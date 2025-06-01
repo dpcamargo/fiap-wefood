@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d0fc4034-4233-435b-8e4e-0a5f1ebae255",
+		"_postman_id": "75ece145-2143-46f9-8baa-f85701fa5529",
 		"name": "FIAP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22819714"
+		"_exporter_id": "36887216"
 	},
 	"item": [
 		{
@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@doe.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"221B Baker Street, London\"\n}",
+							"raw": "{\n  \"name\": \"Administrator\",\n  \"email\": \"admi2n1@admin.com\",\n  \"username\": \"admin13\",\n  \"password\": \"12314564\",\n  \"role\": \"ADMIN\",\n  \"address\": {\n    \"street\": \"Rua dos Admins\",\n    \"neighborhood\": \"Centro\",\n    \"zipCode\": \"00000-000\",\n    \"city\": \"Adminópolis\",\n    \"state\": \"AD\"\n  }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"45b92ad1-9157-421f-a918-385a5704403a\",\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n  \"id\": \"16aa1066-7188-41ec-babb-65a3a99e2ad8\",\n  \"name\": \"Administrator\",\n  \"email\": \"admi2n1@admin.com\",\n  \"username\": \"teste100\",\n  \"password\": \"teste2\",\n  \"role\": \"CUSTOMER\",\n  \"address\": {\n    \"street\": \"Rua dos Admins\",\n    \"neighborhood\": \"Centro\",\n    \"zipCode\": \"00000-000\",\n    \"city\": \"Adminópolis\",\n    \"state\": \"AD\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
