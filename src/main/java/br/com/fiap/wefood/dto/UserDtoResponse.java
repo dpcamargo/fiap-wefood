@@ -1,6 +1,9 @@
 package br.com.fiap.wefood.dto;
 
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
 
 public record UserDtoResponse(
         String id,
@@ -8,6 +11,9 @@ public record UserDtoResponse(
         String email,
         String username,
         String role,
-        String address
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+        LocalDateTime lastUpdateDate,
+        @JsonProperty("address")
+        AddressDto adress
 ) {
 }

@@ -5,6 +5,8 @@ import br.com.fiap.wefood.domain.user.Role;
 import br.com.fiap.wefood.domain.user.User;
 import br.com.fiap.wefood.domain.user.UserRepository;
 import jakarta.annotation.PostConstruct;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,11 +40,18 @@ public class AdminUserInitializer {
                     "admin@admin.com",
                     "admin",
                     passwordEncoder.encode(adminPassword),
-                    Role.ADMIN
+                    Role.ADMIN,
+                    LocalDateTime.now(),
+                    "Rua dos Admins",     // street
+                    "Centro",             // neighborhood
+                    "00000-000",          // zipCode
+                    "Adminópolis",        // city
+                    "AD"                  // state
             );
 
             userRepository.save(adminUser);
-            log.info("admin user created.");
+            log.info("Admin user created.");
         }
     }
+
 }
