@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@doe.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"221B Baker Street, London\"\n}",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@doe.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": {\n        \"street\": \"Baker Street\",\n        \"number\": \"221B\",\n        \"complement\": \"\",\n        \"city\": \"London\",\n        \"state\": \"BL\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -112,7 +112,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Ronald McDonald\",\n    \"email\": \"ronald@mcdonalds.com.br\",\n    \"username\": \"ronaldmcd\",\n    \"password\": \"Password1@\",\n    \"role\": \"RESTAURANT_OWNER\",\n    \"address\": \"McDonald Street\"\n}",
+							"raw": "{\n    \"name\": \"Ronald McDonald\",\n    \"email\": \"ronald@mcdonalds.com.br\",\n    \"username\": \"ronaldmcd\",\n    \"password\": \"Password1@\",\n    \"role\": \"RESTAURANT_OWNER\",\n    \"address\": {\n        \"street\": \"BigMac Street\",\n        \"number\": \"199\",\n        \"complement\": \"\",\n        \"city\": \"French\",\n        \"state\": \"Fries\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"El Patrón\",\n    \"email\": \"admin@admin.com.br\",\n    \"username\": \"iamadmin\",\n    \"password\": \"Password1@\",\n    \"role\": \"ADMIN\",\n    \"address\": \"White House\"\n}",
+							"raw": "{\n    \"name\": \"Pablo Escobar\",\n    \"email\": \"admin@admin.com.br\",\n    \"username\": \"iamadmin\",\n    \"password\": \"Password1@\",\n    \"role\": \"ADMIN\",\n    \"address\": {\n        \"street\": \"Calle del Jefe\",\n        \"number\": \"777\",\n        \"city\": \"Bogotá\",\n        \"state\": \"CO\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,7 +247,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "45b92ad1-9157-421f-a918-385a5704403a"
+									"value": "4fd90a00-27ea-4c05-afd6-ba3e9d5cc33e"
 								}
 							]
 						}
@@ -271,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"45b92ad1-9157-421f-a918-385a5704403a\",\n    \"name\": \"John Changed Name\",\n    \"email\": \"johnNewMail@uol.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"id\": \"4fd90a00-27ea-4c05-afd6-ba3e9d5cc33ej\",\n    \"name\": \"John DoeX\",\n    \"email\": \"john@doe.com.br\",\n    \"username\": \"johnny\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": {\n        \"street\": \"Baker Street\",\n        \"number\": \"221Bs\",\n        \"complement\": \"\",\n        \"city\": \"London\",\n        \"state\": \"BL\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -334,7 +334,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "45b92ad1-9157-421f-a918-385a5704403a"
+									"value": "6a152c84-e4f6-4185-87e3-c2c7985804c7"
 								}
 							]
 						}
@@ -356,7 +356,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jane\",\n    \"email\": \"jane@uol.com.br\",\n    \"username\": \"jane\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": \"Lolol Street, 51\"\n}",
+							"raw": "{\n    \"name\": \"Jane\",\n    \"email\": \"jane@uol.com.br\",\n    \"username\": \"jane\",\n    \"password\": \"Password1@\",\n    \"role\": \"CUSTOMER\",\n    \"address\": {\n        \"street\": \"Baker Street\",\n        \"number\": \"221C\",\n        \"complement\": \"Apt 2\",\n        \"city\": \"London\",\n        \"state\": \"BL\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -402,7 +402,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"janeX\",\n    \"password\": \"Password1@\"\n}",
+							"raw": "{\n    \"username\": \"jane\",\n    \"password\": \"Password1@\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -652,7 +652,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "c61c73ba-f5fb-4ca3-b9fd-ea9febe21762"
+									"value": "80e484ea-f912-41d7-820a-d278a1d384ed"
 								}
 							]
 						}
