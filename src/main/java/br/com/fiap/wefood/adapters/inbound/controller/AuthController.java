@@ -1,6 +1,8 @@
 package br.com.fiap.wefood.adapters.inbound.controller;
 
 import br.com.fiap.wefood.security.JwtUtil;
+import br.com.fiap.wefood.security.MyUserDetails;
+import io.jsonwebtoken.Claims;
 import java.util.Date;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,9 +28,12 @@ public class AuthController {
     public LoginResponse login(@RequestBody LoginRequestDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
-        String token = jwtUtil.generateToken(authentication.getName());
-        Date expiresAt = jwtUtil.extractExpirationDateFromToken(token);
-        return new LoginResponse(token, authentication.getName(), expiresAt.toString());
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        String token = jwtUtil.generateToken(authentication.getName(), userDetails.getUserId().toString());
+        Claims claims = jwtUtil.extractClaims(token);
+        Date expiresAt = jwtUtil.extractExpirationDate(claims);
+        String userId = jwtUtil.extractUserId(claims);
+        return new LoginResponse(token, authentication.getName(), expiresAt.toString(), userId);
     }
 
     public record LoginRequestDTO (
@@ -38,6 +43,7 @@ public class AuthController {
     public record LoginResponse(
             String token,
             String username,
-            String expiresAt
+            String expiresAt,
+            String userId
     ) {}
 }

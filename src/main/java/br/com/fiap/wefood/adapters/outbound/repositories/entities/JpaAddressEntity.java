@@ -21,6 +21,9 @@ public class JpaAddressEntity {
     @GeneratedValue
     private UUID id;
 
+    private String street;
+    private String number;
+    private String complement;
     private String city;
     private String state;
 

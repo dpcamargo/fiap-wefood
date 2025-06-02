@@ -1,6 +1,7 @@
 package br.com.fiap.wefood.infrastructure.config;
 
 import br.com.fiap.wefood.adapters.outbound.password.PasswordEncoder;
+import br.com.fiap.wefood.domain.user.Address;
 import br.com.fiap.wefood.domain.user.Role;
 import br.com.fiap.wefood.domain.user.User;
 import br.com.fiap.wefood.domain.user.UserRepository;
@@ -38,7 +39,16 @@ public class AdminUserInitializer {
                     "admin@admin.com",
                     "admin",
                     passwordEncoder.encode(adminPassword),
-                    Role.ADMIN
+                    Role.ADMIN,
+                    new Address(
+                            UUID.randomUUID(),
+                            "Baker Street",
+                            "1337",
+                            "nil",
+                            "London",
+                            "GL"
+
+                    )
             );
 
             userRepository.save(adminUser);

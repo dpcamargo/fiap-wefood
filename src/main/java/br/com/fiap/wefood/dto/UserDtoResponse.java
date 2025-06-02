@@ -1,5 +1,6 @@
 package br.com.fiap.wefood.dto;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UserDtoResponse(
@@ -8,6 +9,8 @@ public record UserDtoResponse(
         String email,
         String username,
         String role,
-        String address
+        LocalDateTime createdAt,
+        LocalDateTime modifiedAt,
+        AddressDto address
 ) {
 }

@@ -1,5 +1,6 @@
 package br.com.fiap.wefood.domain.user;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class User {
@@ -9,17 +10,33 @@ public class User {
     private String username;
     private String password;
     private Role role;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Address address;
 
     public User() {
     }
 
-    public User(UUID id, String name, String email, String username, String password, Role role) {
+    public User(UUID id, String name, String email, String username, String password, Role role, Address address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.address = address;
+    }
+
+    public User(UUID id, String name, String email, String username, String password, Role role, LocalDateTime createdAt, LocalDateTime updatedAt, Address address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.address = address;
     }
 
     public UUID getId() {
@@ -68,5 +85,29 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
